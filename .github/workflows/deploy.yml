@@ -19,7 +19,9 @@ jobs:
           node-version: 20
           cache: npm
       - name: Install dependencies
-        run: npm ci
+        run: |
+          npm install -g npm@11
+          npm ci
       - name: Build
         run: npm run build
       - name: Deploy to main branch (user site root)
