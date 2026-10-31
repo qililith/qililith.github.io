@@ -6,3 +6,5 @@
 - `src` 分支：应用源码（改这里 → Actions 自动构建并发布）
 
 部署管线：`.github/workflows/deploy.yml`
+
+测试部署触发：2026-10-31 17:21
