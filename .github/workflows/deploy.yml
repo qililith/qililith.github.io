@@ -1,0 +1,32 @@
+name: Build and deploy to GitHub Pages
+
+on:
+  push:
+    branches: [src]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: src
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Build
+        run: npm run build
+      - name: Deploy to main branch (user site root)
+        run: |
+          cd dist
+          git init -b main
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Deploy from src branch"
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/qililith/qililith.github.io.git main
